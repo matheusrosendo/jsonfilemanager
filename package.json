@@ -1,0 +1,26 @@
+{
+  "name": "jsonfilemanager",
+  "version": "0.0.1",
+  "description": "A simple package to deal with reading and writing json files",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matheusrosendo/jsonfilemanager.git"
+  },
+  "keywords": [
+    "json",
+    "file"
+  ],
+  "author": "Matheus Rosendo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/matheusrosendo/jsonfilemanager/issues"
+  },
+  "homepage": "https://github.com/matheusrosendo/jsonfilemanager#readme",
+  "dependencies": {
+    "fs": "^0.0.1-security"
+  }
+}

@@ -8,42 +8,37 @@ const fs = require("fs");
 
 class Files {
       
+    
     /**
-     * Write a json file for the given object list
+     * Write a json file with the given JSON object 
      * @param {String} _fileName 
      * @param {Object[]} _tokenList 
-     * @returns 
+     * @returns true if file was created with success
      */
-    static async serializeObjectListToJson(_fileName, _objectList){
-        Util.assertValidInputs([_fileName, _objectList], "serializeObjectListToJson");
-        console.log("###### Writing object list to JSON file:"+_fileName+" ######")
-        
-        let reservesPromise = new Promise((resolve, reject) =>{
-            fs.writeFile(_fileName, JSON.stringify(_objectList, null, 2), 'utf8', (err)=>{
-                if(err){
-                    reject("Error saving file "+_fileName+": "+err)
-                } else {
-                    resolve();
-                }
-            });
-        });
-        let resolvedPromiseReserves = await Promise.resolve(reservesPromise);
-        
-        return resolvedPromiseReserves;
+    static serializeObjectToJsonFile(_fileName, _objectList){
+        if (!_fileName){
+            throw new Error("Filename is empty");
+        }
+        try {
+            fs.writeFileSync(_fileName, JSON.stringify(_objectList, null, 2), {encoding: 'utf8'});
+            return true;
+        } catch (error) {
+            throw new Error(error);
+        }
     }
 
     /**
-     * Fill a object list from a json file 
+     * Fill an object from a json file 
      * @param {*} _file 
-     * @returns object list (Object[])
+     * @returns JSON object 
      */
-    static parseJSONtoOjectList(_file){
+    static parseJsonFileToObject(_file){
         let objList;
         try {
             let fileContent = fs.readFileSync(_file, 'utf8');
             objList  = JSON.parse(fileContent); 
         } catch (error) {
-            console.log("Error trying to read "+_file+" | "+error);
+            throw new Error("Error trying to read "+_file+" | "+error);
         }    
         return objList;
     }
@@ -60,17 +55,18 @@ class Files {
                 fileFound = true;
             }
         } catch (error) {
-            console.log("Error trying to read "+_file+" | "+error);
+            throw new Error("Error trying to read "+_file+" | "+error);
         }    
         return fileFound;
     }
 
     /**
-     * Delete given file 
+     * Delete given _fileName 
      */
     static delete(_fileName){
         if (fs.existsSync(_fileName)) {
             fs.unlinkSync(_fileName);
+            return true
         } else {
             console.log('Error: file not found = '+_fileName);
         }        
@@ -93,8 +89,6 @@ class Files {
         }        
         return filesNames
     }
-
-
         
 }
 module.exports = Files;

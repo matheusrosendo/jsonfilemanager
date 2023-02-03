@@ -1,6 +1,6 @@
 {
   "name": "jsonfilemanager",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A simple package to deal with reading and writing json files",
   "main": "main.js",
   "scripts": {
